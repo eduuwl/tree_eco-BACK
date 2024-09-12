@@ -16,14 +16,14 @@ model cadastro_empresa {
   endereco_emp     String
   CEP_emp          String
   senha_emp        String
-  confirmar_senha  String
-  certificado_emp  String?
+  confirmar_senha  String?
 }
 
 model cadastro_cliente {
   cliente_id     Int    @id @default(autoincrement())
   nome           String
   cpf            String @unique
-  email          String
+  email          String @unique
   telefone       String?
+  senha          String
 }
