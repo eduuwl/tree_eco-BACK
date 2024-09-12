@@ -16,7 +16,6 @@ model cadastro_empresa {
   endereco_emp     String
   CEP_emp          String
   senha_emp        String
-  confirmar_senha  String?
 }
 
 model cadastro_cliente {
