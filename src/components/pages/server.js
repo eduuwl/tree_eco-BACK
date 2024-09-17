@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 
 // rota empresa
 app.post('/empresa', async (req, res) => {
-  const { nome_emp, CNPJ_emp, email_emp, contato_emp, endereco_emp, CEP_emp, senha_emp } = req.body;
+  const { nome_emp, CNPJ_emp, email_emp, contato_emp, endereco_emp, senha_emp } = req.body;
 
   try {
-    if (!nome_emp || !CNPJ_emp || !email_emp || !contato_emp || !endereco_emp || !CEP_emp || !senha_emp) {
+    if (!nome_emp || !CNPJ_emp || !email_emp || !contato_emp || !endereco_emp || !senha_emp) {
       return res.status(400).json({ error: "Todos os campos obrigatórios devem ser fornecidos" });
     }
 
@@ -25,7 +25,6 @@ app.post('/empresa', async (req, res) => {
         email_emp,
         contato_emp,
         endereco_emp,
-        CEP_emp,
         senha_emp,
       }
     });

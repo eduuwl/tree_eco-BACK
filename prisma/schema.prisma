@@ -15,7 +15,6 @@ model cadastro_empresa {
   contato_emp  String
   endereco_emp String
   senha_emp    String
-  CEP_emp      String
 }
 
 model cadastro_cliente {

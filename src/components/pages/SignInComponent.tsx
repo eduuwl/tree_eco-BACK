@@ -1,12 +1,11 @@
 import { SetStateAction, useState } from 'react';
 import axios from 'axios';
-import styles from './SignInComponent.module.css'
+import styles from './SignInComponent.module.css';
 
 import { FaUsers, FaPhone, FaMapLocationDot, FaLock, FaUserTie } from "react-icons/fa6";
 import { IoDocument, IoMail } from "react-icons/io5";
 
-function SignIn () {
-    
+function SignIn() {
     const [signInType, setSignInType] = useState('');
     const [formData, setFormData] = useState({
         nome_emp: '',
@@ -14,7 +13,6 @@ function SignIn () {
         email_emp: '',
         contato_emp: '',
         endereco_emp: '',
-        CEP_emp: '',
         senha_emp: '',
         
         nome: '',
@@ -40,18 +38,18 @@ function SignIn () {
 
         try {
             if (signInType === 'cnpj') {
+                console.log('Dados enviados:', formData); // Verificar dados
                 await axios.post('http://localhost:3001/empresa', {
                     nome_emp: formData.nome_emp,
                     CNPJ_emp: formData.CNPJ_emp,
                     email_emp: formData.email_emp,
                     contato_emp: formData.contato_emp,
                     endereco_emp: formData.endereco_emp,
-                    CEP_emp: formData.CEP_emp,
                     senha_emp: formData.senha_emp,
-                    //confirmar_senha: formData.confirmar_senha
                 });
                 alert('Empresa cadastrada com sucesso!');
             } else if (signInType === 'cpf') {
+                console.log('Dados enviados:', formData); // Verificar dados
                 await axios.post('http://localhost:3001/cliente', {
                     nome: formData.nome,
                     cpf: formData.cpf,
@@ -62,8 +60,13 @@ function SignIn () {
                 alert('Cliente cadastrado com sucesso!');
             }
         } catch (error) {
-            console.error('Erro ao cadastrar:', error);
-            alert('Erro ao cadastrar');
+            if (axios.isAxiosError(error)) {
+                console.error('Erro no Axios:', error.response?.data || error.message);
+                alert(`Erro ao cadastrar: ${error.response?.data?.message || error.message}`);
+            } else {
+                console.error('Erro desconhecido:', error);
+                alert('Erro desconhecido ao cadastrar.');
+            }
         }
     };
 
@@ -79,6 +82,7 @@ function SignIn () {
                 <div className={styles.second_column}>
                     <h2 className={`${styles.title} ${styles.title_secondary}`}>Crie sua conta empresarial</h2>
                     <form className={styles.form} onSubmit={handleSubmit}>
+                        {/* Formulário Empresa */}
                         <label className={styles.label_input} htmlFor='nome_emp'>
                             <FaUsers className={styles.icon_modify}/>
                             <input
